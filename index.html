@@ -4,14 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Arivu AI — Learn. Build. Grow.</title>
+  <title>Arivu AI | Learn. Build. Grow.</title>
 
   <meta name="description"
-        content="Meet Arivu AI, your AI assistant for learning, understanding PDFs, generating code, and building projects.">
+    content="Discover Arivu AI, your AI assistant for learning, PDF summaries, study notes, programming, and project development.">
 
-  <meta name="theme-color" content="#0b1020">
+  <meta name="theme-color" content="#080914">
+
+  <meta property="og:title" content="Arivu AI — Learn. Build. Grow.">
+  <meta property="og:description"
+    content="An AI assistant designed to support students and developers.">
+  <meta property="og:type" content="website">
 
   <style>
+    :root {
+      --background: #080914;
+      --surface: #101326;
+      --surface-light: #151a31;
+      --border: rgba(166, 153, 255, 0.17);
+      --text: #f6f7ff;
+      --muted: #a9b0c9;
+      --purple: #9b75ff;
+      --blue: #68a5ff;
+      --cyan: #65e6f0;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -20,13 +37,16 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 90px;
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #080b16;
-      color: #f5f7ff;
+      font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
     a {
@@ -34,249 +54,557 @@
       color: inherit;
     }
 
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .container {
-      width: min(1100px, 90%);
+      width: min(1120px, 90%);
       margin: auto;
     }
 
-    header {
-      border-bottom: 1px solid #20253b;
-      background: rgba(8, 11, 22, 0.96);
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 9, 20, 0.91);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
     }
 
-    nav {
+    .nav-inner {
       min-height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
+      gap: 25px;
     }
 
-    .brand {
+    .logo {
       font-size: 25px;
-      font-weight: 800;
-      letter-spacing: 1px;
+      font-weight: 850;
+      letter-spacing: -1px;
+      white-space: nowrap;
     }
 
-    .brand span {
-      color: #a78bfa;
+    .logo span {
+      color: var(--purple);
     }
 
     .nav-links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
-      color: #c3c9df;
+      align-items: center;
+      gap: 27px;
       font-size: 14px;
+      color: #c2c8dd;
     }
 
     .nav-links a:hover {
       color: #c4b5fd;
     }
 
-    .hero {
-      text-align: center;
-      padding: 105px 0 95px;
-      background:
-        radial-gradient(ellipse at top, #25205a 0%, #11152b 38%, #080b16 75%);
+    .nav-cta {
+      padding: 10px 17px;
+      border-radius: 10px;
+      background: rgba(155, 117, 255, 0.12);
+      border: 1px solid rgba(155, 117, 255, 0.45);
+      color: white !important;
     }
 
-    .badge {
-      display: inline-block;
-      border: 1px solid #51458c;
-      color: #d8ccff;
-      background: #19152f;
-      border-radius: 30px;
-      padding: 7px 16px;
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 110px 0 100px;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 650px;
+      height: 500px;
+      top: -180px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(
+        ellipse,
+        rgba(115, 72, 255, 0.22),
+        rgba(46, 74, 200, 0.08) 45%,
+        transparent 72%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 15px;
+      border: 1px solid rgba(155, 117, 255, 0.38);
+      background: rgba(155, 117, 255, 0.08);
+      border-radius: 50px;
+      color: #d5c9ff;
       font-size: 13px;
-      margin-bottom: 24px;
+      margin-bottom: 27px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
     }
 
     h1 {
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1.12;
-      margin-bottom: 24px;
-      letter-spacing: -2px;
+      font-size: clamp(43px, 7.5vw, 78px);
+      line-height: 1.08;
+      letter-spacing: -3px;
+      font-weight: 850;
+      max-width: 950px;
+      margin: 0 auto 25px;
     }
 
-    .gradient {
-      background: linear-gradient(90deg, #c4b5fd, #818cf8, #67e8f9);
+    .gradient-text {
+      background: linear-gradient(
+        100deg,
+        #c2a8ff,
+        #8d9bff 55%,
+        #67e6f0
+      );
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .hero p {
-      color: #bdc5dc;
+    .hero-description {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--muted);
       font-size: 18px;
-      max-width: 690px;
-      margin: 0 auto 32px;
     }
 
-    .buttons {
+    .hero-buttons {
       display: flex;
       justify-content: center;
+      align-items: center;
+      gap: 15px;
       flex-wrap: wrap;
-      gap: 14px;
+      margin-top: 32px;
     }
 
     .button {
-      display: inline-block;
-      padding: 13px 24px;
-      border-radius: 9px;
-      font-weight: bold;
-      transition: transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 49px;
+      padding: 13px 22px;
+      border-radius: 11px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .button:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
-    .primary {
-      background: #8b5cf6;
-      color: white;
+    .button-primary {
+      color: #fff;
+      background: linear-gradient(110deg, #8958ef, #6279f6);
+      box-shadow: 0 8px 35px rgba(117, 86, 245, 0.2);
     }
 
-    .secondary {
-      border: 1px solid #414966;
-      color: #e0e7ff;
+    .button-secondary {
+      border: 1px solid #353b58;
+      background: rgba(255, 255, 255, 0.025);
     }
 
-    section {
-      padding: 76px 0;
+    .button-secondary:hover {
+      border-color: var(--purple);
     }
 
-    .section-title {
+    .hero-note {
+      font-size: 12px;
+      color: #858da8;
+      margin-top: 18px;
+    }
+
+    .trust-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.018);
+      padding: 23px 0;
+    }
+
+    .trust-items {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      color: #c2c9df;
+      font-size: 13px;
+    }
+
+    .trust-items span::before {
+      content: "✦";
+      color: var(--purple);
+      margin-right: 8px;
+    }
+
+    section.content-section {
+      padding: 90px 0;
+    }
+
+    .section-heading {
       text-align: center;
-      font-size: clamp(28px, 4vw, 42px);
-      margin-bottom: 14px;
+      margin-bottom: 45px;
+    }
+
+    .section-label {
+      color: #b49aff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 5vw, 45px);
+      letter-spacing: -1.5px;
+      line-height: 1.2;
     }
 
     .section-description {
-      max-width: 700px;
-      margin: 0 auto 40px;
-      text-align: center;
-      color: #aeb7d1;
+      max-width: 660px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-size: 16px;
     }
 
-    .features {
+    .feature-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
+      gap: 19px;
     }
 
-    .card {
-      background: #111629;
-      border: 1px solid #252d49;
-      border-radius: 15px;
-      padding: 25px;
-      transition: border-color 0.2s, transform 0.2s;
+    .feature-card {
+      padding: 27px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: linear-gradient(
+        145deg,
+        rgba(22, 27, 51, 0.96),
+        rgba(13, 16, 32, 0.96)
+      );
+      transition: transform 0.25s, border-color 0.25s;
     }
 
-    .card:hover {
-      border-color: #8b5cf6;
-      transform: translateY(-4px);
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(155, 117, 255, 0.65);
     }
 
-    .icon {
-      font-size: 30px;
-      margin-bottom: 12px;
+    .feature-icon {
+      width: 51px;
+      height: 51px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(155, 117, 255, 0.12);
+      border: 1px solid rgba(155, 117, 255, 0.18);
+      font-size: 25px;
+      margin-bottom: 21px;
     }
 
-    .card h3 {
+    .feature-card h3 {
       font-size: 19px;
       margin-bottom: 9px;
     }
 
-    .card p {
-      color: #adb7d0;
+    .feature-card p {
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.8;
     }
 
-    .how {
-      background: #0d1121;
+    .workflow {
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(67, 55, 142, 0.10),
+          transparent 70%
+        ),
+        #0c0f1d;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
-    .steps {
+    .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
+      gap: 22px;
+    }
+
+    .step-card {
+      padding: 28px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(17, 21, 40, 0.85);
     }
 
     .step-number {
-      width: 40px;
-      height: 40px;
+      font-size: 13px;
+      color: #c3adff;
+      letter-spacing: 2px;
+      font-weight: 800;
+      margin-bottom: 17px;
+    }
+
+    .step-card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+
+    .step-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .about-panel {
       display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: #29204c;
-      color: #d4c5ff;
-      font-weight: bold;
-      margin-bottom: 15px;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+      padding: 40px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(
+        120deg,
+        rgba(30, 26, 65, 0.65),
+        rgba(15, 20, 39, 0.85)
+      );
     }
 
-    .download-box {
-      max-width: 760px;
-      margin: auto;
-      text-align: center;
-      padding: 42px 28px;
-      background: linear-gradient(135deg, #191737, #111a31);
-      border: 1px solid #38315e;
-      border-radius: 20px;
+    .about-panel h2 {
+      margin-bottom: 17px;
     }
 
-    .download-box p {
-      color: #c1c9df;
-      margin: 15px auto 25px;
-      max-width: 560px;
+    .about-panel p {
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    .note {
-      font-size: 12px;
-      color: #98a3bd !important;
-      margin-top: 18px !important;
+    .about-highlights {
+      display: grid;
+      gap: 15px;
     }
 
-    .about {
-      text-align: center;
+    .highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(8, 9, 20, 0.35);
     }
 
-    .about p {
-      max-width: 760px;
-      margin: auto;
-      color: #b6bfd6;
+    .highlight-icon {
+      font-size: 21px;
     }
 
-    footer {
-      padding: 28px 0;
-      border-top: 1px solid #222941;
-      text-align: center;
-      color: #98a3bd;
+    .highlight h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .highlight p {
       font-size: 13px;
     }
 
-    @media (max-width: 760px) {
-      nav {
-        padding: 17px 0;
+    .download-section {
+      padding: 25px 0 100px !important;
+    }
+
+    .download-panel {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 65px 30px;
+      border-radius: 23px;
+      border: 1px solid rgba(155, 117, 255, 0.35);
+      background:
+        radial-gradient(
+          ellipse at top,
+          rgba(129, 91, 255, 0.20),
+          transparent 70%
+        ),
+        #101326;
+    }
+
+    .download-panel h2 {
+      margin-bottom: 15px;
+    }
+
+    .download-panel > p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: var(--muted);
+    }
+
+    .download-status {
+      font-size: 12px;
+      color: #929ab5;
+      margin-top: 17px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .footer-brand {
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .footer-brand span {
+      color: var(--purple);
+    }
+
+    .footer-copy {
+      color: #8d96b1;
+      font-size: 12px;
+    }
+
+    .footer-tagline {
+      color: #c5c9df;
+      font-size: 12px;
+    }
+
+    @media (max-width: 850px) {
+      .nav-inner {
+        padding: 15px 0;
         flex-direction: column;
+        gap: 13px;
       }
 
       .nav-links {
         justify-content: center;
-        gap: 14px;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+      }
+
+      .nav-cta {
+        padding: 6px 10px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .about-panel {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: 91%;
       }
 
       .hero {
-        padding: 75px 0;
+        padding: 78px 0 70px;
       }
 
-      .features,
-      .steps {
+      h1 {
+        letter-spacing: -1.8px;
+        font-size: clamp(39px, 11vw, 54px);
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      .eyebrow {
+        font-size: 11px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons .button {
+        width: 100%;
+        max-width: 290px;
+      }
+
+      .trust-items {
+        gap: 12px 20px;
+        font-size: 11px;
+      }
+
+      section.content-section {
+        padding: 65px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 30px;
+      }
+
+      .section-description {
+        font-size: 14px;
+      }
+
+      .feature-grid,
+      .steps-grid {
         grid-template-columns: 1fr;
       }
 
-      section {
-        padding: 55px 0;
+      .feature-card,
+      .step-card {
+        padding: 24px;
+      }
+
+      .download-panel {
+        padding: 43px 22px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
       }
     }
   </style>
@@ -284,94 +612,351 @@
 
 <body>
 
-  <header>
-    <div class="container">
-      <nav>
-        <a href="#home" class="brand">ARIVU <span>AI</span></a>
+  <header class="navbar">
+    <div class="container nav-inner">
 
-        <div class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#features">Features</a>
-          <a href="#how">How It Works</a>
-          <a href="#about">About</a>
-          <a href="#download">Download</a>
-        </div>
+      <a href="#home" class="logo" aria-label="Arivu AI home">
+        ARIVU <span>AI</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#about">About</a>
+        <a href="#download" class="nav-cta">Get Arivu AI ↗</a>
       </nav>
+
     </div>
   </header>
 
   <main>
 
     <section class="hero" id="home">
-      <div class="container">
-        <div class="badge">Your AI Assistant for Learning and Building</div>
+      <div class="container hero-content">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          AI assistance for learning and building
+        </div>
 
         <h1>
-          Turn your ideas into<br>
-          <span class="gradient">understanding.</span>
+          Your ideas deserve<br>
+          <span class="gradient-text">to become reality.</span>
         </h1>
 
-        <p>
-          Meet Arivu AI — an AI assistant designed to help students
-          understand concepts, learn from documents, explore programming,
-          and work on projects.
+        <p class="hero-description">
+          Learn new concepts, understand documents, explore programming,
+          and develop project ideas with Arivu AI — your AI assistant
+          for students and developers.
         </p>
 
-        <div class="buttons">
-          <a href="#features" class="button primary">Explore Features</a>
-          <a href="#download" class="button secondary">Get Arivu AI</a>
+        <div class="hero-buttons">
+          <a href="#features" class="button button-primary">
+            Explore Features <span>→</span>
+          </a>
+
+          <a href="#download" class="button button-secondary">
+            Discover Arivu AI
+          </a>
+        </div>
+
+        <p class="hero-note">
+          Learn at your pace. Explore your ideas. Build your understanding.
+        </p>
+
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-items">
+        <span>AI Chat</span>
+        <span>Learning Support</span>
+        <span>PDF Assistance</span>
+        <span>Programming Help</span>
+      </div>
+    </div>
+
+    <section class="content-section" id="features">
+      <div class="container">
+
+        <div class="section-heading">
+          <p class="section-label">Explore the possibilities</p>
+          <h2>Tools to help you move forward.</h2>
+          <p class="section-description">
+            From understanding a difficult concept to exploring a
+            programming project, Arivu AI brings learning and
+            productivity tools together.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+
+          <article class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>AI Chat</h3>
+            <p>
+              Ask questions, explore ideas, and get explanations
+              across a variety of subjects.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🎓</div>
+            <h3>AI Tutor</h3>
+            <p>
+              Explore subjects step by step with explanations
+              designed to make difficult concepts easier to understand.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">📄</div>
+            <h3>PDF Assistant</h3>
+            <p>
+              Upload supported PDF documents and ask AI to help
+              you understand their contents.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3>Summaries and Notes</h3>
+            <p>
+              Turn document content into summaries and study notes
+              that help you review important information.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">❓</div>
+            <h3>Question Generation</h3>
+            <p>
+              Generate questions from supported uploaded documents
+              to help you review what you have learned.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">💻</div>
+            <h3>Code Generation</h3>
+            <p>
+              Get programming examples and generated code
+              to help you work through coding tasks.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🔎</div>
+            <h3>Code Explanation</h3>
+            <p>
+              Explore what a piece of code does and understand
+              how its different parts work together.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🛠️</div>
+            <h3>Project Builder</h3>
+            <p>
+              Turn project ideas into structured programming
+              files and a starting point for development.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">💾</div>
+            <h3>Saved Data and Memory</h3>
+            <p>
+              Access supported saved information and conversation
+              history for a more continuous experience.
+            </p>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <section id="features">
+    <section class="content-section workflow" id="how-it-works">
       <div class="container">
-        <h2 class="section-title">One Assistant. Many Possibilities.</h2>
 
-        <p class="section-description">
-          Explore tools designed to support your learning, programming,
-          and project development.
-        </p>
+        <div class="section-heading">
+          <p class="section-label">Getting started</p>
+          <h2>From question to understanding.</h2>
+          <p class="section-description">
+            Start with a question, a document, or an idea.
+            Let Arivu AI help you explore the next step.
+          </p>
+        </div>
 
-        <div class="features">
+        <div class="steps-grid">
 
-          <article class="card">
-            <div class="icon">🤖</div>
-            <h3>AI Chat</h3>
-            <p>Ask questions, explore ideas, and get help understanding different topics.</p>
+          <article class="step-card">
+            <div class="step-number">STEP 01</div>
+            <h3>Choose a tool</h3>
+            <p>
+              Select an available Arivu AI feature based on
+              whether you want to learn, analyze a PDF, or code.
+            </p>
           </article>
 
-          <article class="card">
-            <div class="icon">🎓</div>
-            <h3>AI Tutor</h3>
-            <p>Learn subjects and concepts through step-by-step explanations in simple language.</p>
+          <article class="step-card">
+            <div class="step-number">STEP 02</div>
+            <h3>Share your question</h3>
+            <p>
+              Enter a topic, ask a question, upload a supported
+              document, or describe your project idea.
+            </p>
           </article>
 
-          <article class="card">
-            <div class="icon">📄</div>
-            <h3>PDF Assistant</h3>
-            <p>Upload supported PDF documents and use AI to work with their content.</p>
+          <article class="step-card">
+            <div class="step-number">STEP 03</div>
+            <h3>Explore the result</h3>
+            <p>
+              Use the generated explanation, notes, code,
+              or project structure as a starting point for learning.
+            </p>
           </article>
 
-          <article class="card">
-            <div class="icon">📝</div>
-            <h3>Summaries and Notes</h3>
-            <p>Turn document content into useful summaries and study notes.</p>
-          </article>
+        </div>
+      </div>
+    </section>
 
-          <article class="card">
-            <div class="icon">❓</div>
-            <h3>Question Generation</h3>
-            <p>Generate questions based on the content of your uploaded documents.</p>
-          </article>
+    <section class="content-section" id="about">
+      <div class="container">
 
-          <article class="card">
-            <div class="icon">💻</div>
-            <h3>Code Generation</h3>
-            <p>Get programming examples and code to help you work through coding tasks.</p>
-          </article>
+        <div class="about-panel">
 
-          <article class="card">
-            <div class="icon">🔍</div>
-            <h3>Code Explanation</h3>
-            <p>Understand
+          <div>
+            <p class="section-label">The idea behind Arivu AI</p>
+
+            <h2>
+              Make learning feel more approachable.
+            </h2>
+
+            <p>
+              Arivu AI is designed to bring useful AI-assisted
+              learning and development tools together in one place.
+              It aims to help students explore concepts, work with
+              documents, understand programming, and take their
+              project ideas further.
+              <br><br>
+              The goal is simple: make it easier to take the next
+              step in learning and building.
+            </p>
+          </div>
+
+          <div class="about-highlights">
+
+            <div class="highlight">
+              <div class="highlight-icon">📚</div>
+              <div>
+                <h3>For learners</h3>
+                <p>Explore subjects, explanations, summaries, and notes.</p>
+              </div>
+            </div>
+
+            <div class="highlight">
+              <div class="highlight-icon">⌨️</div>
+              <div>
+                <h3>For developers</h3>
+                <p>Explore code, programming explanations, and project ideas.</p>
+              </div>
+            </div>
+
+            <div class="highlight">
+              <div class="highlight-icon">💡</div>
+              <div>
+                <h3>For curious minds</h3>
+                <p>Ask questions and discover new ways to approach problems.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section download-section" id="download">
+      <div class="container">
+
+        <div class="download-panel">
+          <p class="section-label">Your next step starts here</p>
+
+          <h2>Ready to explore Arivu AI?</h2>
+
+          <p>
+            Discover an AI assistant designed to support your
+            learning, programming, and project development.
+          </p>
+
+          <!-- Replace this placeholder with your real APK download URL. -->
+          <a
+            href="#download"
+            class="button button-primary"
+            id="download-button"
+          >
+            Get Arivu AI <span>↗</span>
+          </a>
+
+          <p class="download-status" id="download-status">
+            Official app download link will be added here.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+
+      <a href="#home" class="footer-brand">
+        ARIVU <span>AI</span>
+      </a>
+
+      <p class="footer-copy">
+        © 2026 Arivu AI. All rights reserved.
+      </p>
+
+      <p class="footer-tagline">
+        Learn. Build. Grow.
+      </p>
+
+    </div>
+  </footer>
+
+  <script>
+    /*
+      DOWNLOAD SETUP:
+      When you have a public APK download URL, replace
+      the placeholder below with that real URL.
+
+      Example format:
+      const apkDownloadUrl = "YOUR_REAL_DOWNLOAD_URL";
+    */
+
+    const apkDownloadUrl = "";
+
+    const downloadButton = document.getElementById("download-button");
+    const downloadStatus = document.getElementById("download-status");
+
+    if (apkDownloadUrl.trim() !== "") {
+      downloadButton.href = apkDownloadUrl;
+      downloadButton.target = "_blank";
+      downloadButton.rel = "noopener noreferrer";
+      downloadStatus.textContent =
+        "Use the button above to access the official app download.";
+    } else {
+      downloadButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        downloadStatus.textContent =
+          "The APK download link has not been configured yet. Please check back soon.";
+      });
+    }
+  </script>
+
+</body>
+</html>
