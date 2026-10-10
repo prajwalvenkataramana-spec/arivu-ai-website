@@ -1,1 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Arivu AI — Learn. Build. Grow.</title>
+
+  <meta name="description"
+        content="Meet Arivu AI, your AI assistant for learning, understanding PDFs, generating code, and building projects.">
+
+  <meta name="theme-color" content="#0b1020">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080b16;
+      color: #f5f7ff;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid #20253b;
+      background: rgba(8, 11, 22, 0.96);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .brand span {
+      color: #a78bfa;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      color: #c3c9df;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: #c4b5fd;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 105px 0 95px;
+      background:
+        radial-gradient(ellipse at top, #25205a 0%, #11152b 38%, #080b16 75%);
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #51458c;
+      color: #d8ccff;
+      background: #19152f;
+      border-radius: 30px;
+      padding: 7px 16px;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.12;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #c4b5fd, #818cf8, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: #bdc5dc;
+      font-size: 18px;
+      max-width: 690px;
+      margin: 0 auto 32px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 9px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      background: #8b5cf6;
+      color: white;
+    }
+
+    .secondary {
+      border: 1px solid #414966;
+      color: #e0e7ff;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 42px);
+      margin-bottom: 14px;
+    }
+
+    .section-description {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      text-align: center;
+      color: #aeb7d1;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #111629;
+      border: 1px solid #252d49;
+      border-radius: 15px;
+      padding: 25px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #8b5cf6;
+      transform: translateY(-4px);
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-size: 19px;
+      margin-bottom: 9px;
+    }
+
+    .card p {
+      color: #adb7d0;
+      font-size: 14px;
+    }
+
+    .how {
+      background: #0d1121;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #29204c;
+      color: #d4c5ff;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .download-box {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+      padding: 42px 28px;
+      background: linear-gradient(135deg, #191737, #111a31);
+      border: 1px solid #38315e;
+      border-radius: 20px;
+    }
+
+    .download-box p {
+      color: #c1c9df;
+      margin: 15px auto 25px;
+      max-width: 560px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #98a3bd !important;
+      margin-top: 18px !important;
+    }
+
+    .about {
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 760px;
+      margin: auto;
+      color: #b6bfd6;
+    }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid #222941;
+      text-align: center;
+      color: #98a3bd;
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        padding: 17px 0;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .hero {
+        padding: 75px 0;
+      }
+
+      .features,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#home" class="brand">ARIVU <span>AI</span></a>
+
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#features">Features</a>
+          <a href="#how">How It Works</a>
+          <a href="#about">About</a>
+          <a href="#download">Download</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="badge">Your AI Assistant for Learning and Building</div>
+
+        <h1>
+          Turn your ideas into<br>
+          <span class="gradient">understanding.</span>
+        </h1>
+
+        <p>
+          Meet Arivu AI — an AI assistant designed to help students
+          understand concepts, learn from documents, explore programming,
+          and work on projects.
+        </p>
+
+        <div class="buttons">
+          <a href="#features" class="button primary">Explore Features</a>
+          <a href="#download" class="button secondary">Get Arivu AI</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <h2 class="section-title">One Assistant. Many Possibilities.</h2>
+
+        <p class="section-description">
+          Explore tools designed to support your learning, programming,
+          and project development.
+        </p>
+
+        <div class="features">
+
+          <article class="card">
+            <div class="icon">🤖</div>
+            <h3>AI Chat</h3>
+            <p>Ask questions, explore ideas, and get help understanding different topics.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🎓</div>
+            <h3>AI Tutor</h3>
+            <p>Learn subjects and concepts through step-by-step explanations in simple language.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📄</div>
+            <h3>PDF Assistant</h3>
+            <p>Upload supported PDF documents and use AI to work with their content.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📝</div>
+            <h3>Summaries and Notes</h3>
+            <p>Turn document content into useful summaries and study notes.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">❓</div>
+            <h3>Question Generation</h3>
+            <p>Generate questions based on the content of your uploaded documents.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">💻</div>
+            <h3>Code Generation</h3>
+            <p>Get programming examples and code to help you work through coding tasks.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🔍</div>
+            <h3>Code Explanation</h3>
+            <p>Understand
